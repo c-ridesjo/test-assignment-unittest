@@ -3,27 +3,32 @@
  */
 
 import {createNewTodo} from './../ts/main';
+import { Todo } from "./../ts/models/Todo";
 
 beforeEach (() => {
     document.body.innerHTML="";
 });
 
-test ("Should add text to div", () => {
- /*    
+test ("Should create new todo", () => {
+    
     // Arrange - Skapa förutsättningar för att kunna anropa funktionen
-    let textInput = "städa";     // Spara i en variabel      
+  
     document.body.innerHTML=`<div id="newTodoForm"></div>`  // Ange källa för DOM
-    //let textInput = document.getElementById("newTodoText") as HTMLInputElement;
-)
+    let textInput:string = "städa";     // Spara i en variabel 
+    let myList:Todo[]; // deklarerar en lista
+    myList = [];  // tilldelar listan ingenting
 
     // Act - Anropa funktionen som ska testas
-    createNewTodo(textInput);   
-    textInput.value = "städa";
-
+    createNewTodo(textInput, myList);   // lägg till uppgift att göra i listan 
+    document.body.innerHTML=`<div id="newTodoForm"></div>`  // Ange källa för DOM
     // Assert - Kontroll av förändrade värden
-   // let result = document.getElementById("newTodoText")?.innerHTML;
+    let ulElement = document.getElementById("todos") as HTMLUListElement;   // Hämta hela ul-listan
+  
+    let liElement = ulElement.getElementsByTagName("li")[0];   // Hämta första (li) todo i listan
 
     // let textfield = document.getElementById("newTodoText")?.innerHTML;
-    expect (textInput.innerHTML).toBe("städa");    */
-    expect (true).toBe(true);
+    //console.log (liElement.textContent);
+    expect (liElement.textContent).toBe(textInput);    
+    //expect (true).toBe(true);
+
 });  
