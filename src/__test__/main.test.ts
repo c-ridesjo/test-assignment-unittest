@@ -9,26 +9,22 @@ beforeEach (() => {
     document.body.innerHTML="";
 });
 
-test ("Should create new todo", () => {
+test ("Should create new todo", () => {           // Test 5 - fungerar inte
     
-    // Arrange - Skapa förutsättningar för att kunna anropa funktionen
-  
-    document.body.innerHTML=`<div id="newTodoForm"></div>`  // Ange källa för DOM
+    // Arrange 
+    document.body.innerHTML=`<div id="newTodoForm"></div>`      // Ange källa för DOM
     let textInput:string = "städa";     // Spara i en variabel 
-    let myList:Todo[]; // deklarerar en lista
-    myList = [];  // tilldelar listan ingenting
+    let myList:Todo[];                  // deklarerar en lista
+    myList = [];                        // tilldelar listan ingenting
 
-    // Act - Anropa funktionen som ska testas
-    createNewTodo(textInput, myList);   // lägg till uppgift att göra i listan 
+    // Act 
+    createNewTodo(textInput, myList);                       // lägg till uppgift att göra i listan 
     document.body.innerHTML=`<div id="newTodoForm"></div>`  // Ange källa för DOM
-    // Assert - Kontroll av förändrade värden
-    let ulElement = document.getElementById("todos") as HTMLUListElement;   // Hämta hela ul-listan
-  
-    let liElement = ulElement.getElementsByTagName("li")[0];   // Hämta första (li) todo i listan
 
-    // let textfield = document.getElementById("newTodoText")?.innerHTML;
+    // Assert 
+    let ulElement = document.getElementById("todos") as HTMLUListElement;   // Hämta hela ul-listan
+    let liElement = ulElement.getElementsByTagName("li")[0];                // Hämta första (li) todo i listan
     //console.log (liElement.textContent);
     expect (liElement.textContent).toBe(textInput);    
     //expect (true).toBe(true);
-
 });  
