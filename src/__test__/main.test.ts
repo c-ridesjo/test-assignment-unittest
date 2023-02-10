@@ -3,7 +3,7 @@
  */
 
 import * as main from './../ts/main';
-import * as functions from './../ts/functions';
+//import * as functions from './../ts/functions';
 import { Todo } from "./../ts/models/Todo";
 
 beforeEach (() => {
@@ -57,6 +57,10 @@ test("should display error", () => {
     expect(errorContainer.classList.contains("show")).toBe(true);
 });
       
+// test("toggle todo")
+
+// test("clear todos")
+
 
 //fyll på med fler test - testa fler funktioner, även använda spioner
 
