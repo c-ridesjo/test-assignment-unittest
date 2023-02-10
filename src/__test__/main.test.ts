@@ -28,3 +28,8 @@ test ("Should create new todo", () => {           // Test 5 - fungerar inte
     expect (liElement.textContent).toBe(textInput);    
     //expect (true).toBe(true);
 });  
+
+
+//fyll på med fler test - testa fler funktioner, även använda spioner
+
+//inte anropa andra funktioner utan bara kontrollera att anropet i sig görs (utan att köra koden i den anropande funktionen).
