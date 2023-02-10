@@ -2,34 +2,64 @@
  * @jest-environment jsdom
  */
 
-import {createNewTodo} from './../ts/main';
+import * as main from './../ts/main';
+import * as functions from './../ts/functions';
 import { Todo } from "./../ts/models/Todo";
 
 beforeEach (() => {
     document.body.innerHTML="";
 });
 
-test ("Should create new todo", () => {           // Test 5 - fungerar inte
+test ("Should create new todo list", () => {          
     
     // Arrange 
-    document.body.innerHTML=`<div id="newTodoForm"></div>`      // Ange källa för DOM
-    let textInput:string = "städa";     // Spara i en variabel 
-    let myList:Todo[];                  // deklarerar en lista
-    myList = [];                        // tilldelar listan ingenting
+    const todoText = "Laga mat"
+    const todos: Todo[] = [];
+
+    const spyOnCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
+    document.body.innerHTML = `<ul id = "todos" class = "todo"></ul>`;           
 
     // Act 
-    createNewTodo(textInput, myList);                       // lägg till uppgift att göra i listan 
-    document.body.innerHTML=`<div id="newTodoForm"></div>`  // Ange källa för DOM
+    main.createNewTodo(todoText, todos); 
 
     // Assert 
-    let ulElement = document.getElementById("todos") as HTMLUListElement;   // Hämta hela ul-listan
-    let liElement = ulElement.getElementsByTagName("li")[0];                // Hämta första (li) todo i listan
-    //console.log (liElement.textContent);
-    expect (liElement.textContent).toBe(textInput);    
-    //expect (true).toBe(true);
+    expect(todos.length).toBe(1);
+    expect(spyOnCreateHtml).toHaveBeenCalled();
+    spyOnCreateHtml.mockRestore();    
 });  
 
+test ("should create HTML", () => {
+    
+    // Arrange
+    const todoText = "halloj";
+    let todos: Todo[] = [];
+    let spyOnCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
+    // Act
+    main.createNewTodo(todoText, todos);
+    // Assert
+    expect(spyOnCreateHtml).toHaveBeenCalled();
+    expect(spyOnCreateHtml).toBeCalledTimes(1);
+    spyOnCreateHtml.mockRestore();
+});
+
+test("should display error", () => {
+    const error = "testing";
+    const show = true;
+    document.body.innerHTML = `
+    <div id="error" class="error"></div>
+    `;
+    let errorContainer: HTMLDivElement = document.getElementById("error") as HTMLDivElement;
+    
+    main.displayError(error, show);
+    
+    expect(errorContainer.innerHTML).toBe(error);
+    
+    expect(errorContainer.classList.contains("show")).toBe(true);
+});
+      
 
 //fyll på med fler test - testa fler funktioner, även använda spioner
 
 //inte anropa andra funktioner utan bara kontrollera att anropet i sig görs (utan att köra koden i den anropande funktionen).
+
+

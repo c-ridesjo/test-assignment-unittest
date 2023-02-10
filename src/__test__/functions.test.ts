@@ -40,43 +40,43 @@ test ("Should not add a todo to the list", () => {
 
 test ("Should display error message if less than three letters", () => {
 
-    //Arrange
+    // Arrange
     const todos: Todo[] = [];
     const todo: string = "fs";
 
-    //Act
+    // Act
     const { success, error } = addTodo (todo, todos);           
 
-    //Assert
+    // Assert
     expect(success).toBe(false);   
     expect(error).toEqual("Du måste ange minst tre bokstäver"); 
 }); 
 
 test ("Should toggle if true", () => {
-    //Arrange
+    // Arrange
     const todo = new Todo ("string", false);
 
-    //Act
+    // Act
     changeTodo(todo);
 
-    //Assert
+    // Assert
     expect(todo.done).toBeTruthy();
 });
 
 test ("Should not toggle if false", () => {
-    //Arrange
+    // Arrange
     const todo = new Todo ("string", true);
 
-    //Act
+    // Act
     changeTodo(todo);
 
-    //Assert
+    // Assert
     expect(todo.done).toBeFalsy();
 });
 
 test ("Should remove all todos", () => {
 
-    //Arrange
+    // Arrange
     const todos: Todo[] = [             //skapar en lista med todos
         new Todo ("städa", false),
         new Todo ("handla", false),
@@ -84,9 +84,9 @@ test ("Should remove all todos", () => {
         new Todo ("tvätta", false),
     ];
 
-    //Act
+    // Act
     removeAllTodos(todos);           
 
-    //Assert
+    // Assert
     expect(todos.length).toEqual(0);    
 }); 
