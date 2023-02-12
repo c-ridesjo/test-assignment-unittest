@@ -3,8 +3,7 @@ import { Todo } from "./models/Todo";
 
 let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
 
-export function init() {
-  document.getElementById("clearTodos")?.addEventListener("click", () => {
+document.getElementById("clearTodos")?.addEventListener("click", () => {
     clearTodos(todos);
   });
 
@@ -21,7 +20,6 @@ export function init() {
       createNewTodo(todoText, todos);
     }
   );
-};
 
 export function createNewTodo(todoText: string, todos: Todo[]) {
   let result = addTodo(todoText, todos);
@@ -61,7 +59,7 @@ export function createHtml(todos: Todo[]) {
 
 export function toggleTodo(todo: Todo) {
   changeTodo(todo);
-  createHtml(todos);
+  exports.createHtml(todos);
 }
 
 export function displayError(error: string, show: boolean) {
@@ -80,8 +78,12 @@ export function displayError(error: string, show: boolean) {
 
 export function clearTodos(todos: Todo[]) {
   removeAllTodos(todos);
-  createHtml(todos);
+  exports.createHtml(todos);
 }
 
-createHtml(todos);
+export function init() {
+  exports.createHtml(todos);
+};
+
+//createHtml(todos);
 

@@ -3,46 +3,79 @@
  */
 
 import * as main from './../ts/main';
-//import * as functions from './../ts/functions';
 import { Todo } from "./../ts/models/Todo";
 
 beforeEach (() => {
     document.body.innerHTML="";
 });
 
-test ("Should create new todo list", () => {          
-    
-    // Arrange 
-    const todoText = "Laga mat"
-    const todos: Todo[] = [];
+test("should create new todo", () => {
 
-    const spyOnCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
-    document.body.innerHTML = `<ul id = "todos" class = "todo"></ul>`;           
-
-    // Act 
-    main.createNewTodo(todoText, todos); 
-
-    // Assert 
-    expect(todos.length).toBe(1);
-    expect(spyOnCreateHtml).toHaveBeenCalled();
-    spyOnCreateHtml.mockRestore();    
-});  
-
-test ("should create HTML", () => {
-    
     // Arrange
-    const todoText = "halloj";
-    let todos: Todo[] = [];
-    let spyOnCreateHtml = jest.spyOn(main, "createHtml").mockReturnValue();
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+  
+    const todos: Todo[] = [];
+    const todoTxt = "Hello world";
+  
     // Act
-    main.createNewTodo(todoText, todos);
+    main.createNewTodo(todoTxt, todos);
+  
+    // Assert
+    expect(document.querySelector(".todo__text")?.innerHTML).toEqual(
+      `${todoTxt}`
+    );
+});
+
+test("should create html", () => { 
+
+    // Arrange
+    let todos: Todo[] = [];
+    let todo2 = { text: "todo", done: false };
+    let spyOnCreateHtml = jest
+      .spyOn(main, "createHtml").mockReturnValue();
+  
+    // Act
+    main.clearTodos(todos);
+    main.toggleTodo(todo2);
+    main.init();
+    document.getElementById("sortTodos")?.click();
+  
     // Assert
     expect(spyOnCreateHtml).toHaveBeenCalled();
-    expect(spyOnCreateHtml).toBeCalledTimes(1);
+    expect(spyOnCreateHtml).toHaveBeenCalledTimes(3);
     spyOnCreateHtml.mockRestore();
+});
+    
+test("should toggle todo", () => {        
+    
+    // Arrange
+    let todo = { text: "todo", done: false };
+    let spyOnToggleTodo = jest.spyOn(main, "toggleTodo").mockReturnValue();  
+  
+    // Act
+    main.toggleTodo(todo);
+  
+    // Assert
+    expect(spyOnToggleTodo).toHaveBeenCalled();
+    spyOnToggleTodo.mockRestore();
+});
+
+test("should clear todos", () => {   
+    
+    // Arrange
+    let spyOnClearTodos = jest.spyOn(main, "clearTodos").mockReturnValue();
+  
+    // Act
+    main.clearTodos([]);
+  
+    // Assert
+    expect(spyOnClearTodos).toHaveBeenCalled();
+    spyOnClearTodos.mockRestore();
 });
 
 test("should display error", () => {
+
+    // Arrange
     const error = "testing";
     const show = true;
     document.body.innerHTML = `
@@ -50,20 +83,10 @@ test("should display error", () => {
     `;
     let errorContainer: HTMLDivElement = document.getElementById("error") as HTMLDivElement;
     
-    main.displayError(error, show);
-    
-    expect(errorContainer.innerHTML).toBe(error);
-    
+    // Act
+    main.displayError(error, show);    
+
+    // Assert
+    expect(errorContainer.innerHTML).toBe(error);    
     expect(errorContainer.classList.contains("show")).toBe(true);
 });
-      
-// test("toggle todo")
-
-// test("clear todos")
-
-
-//fyll på med fler test - testa fler funktioner, även använda spioner
-
-//inte anropa andra funktioner utan bara kontrollera att anropet i sig görs (utan att köra koden i den anropande funktionen).
-
-
