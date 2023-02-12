@@ -77,7 +77,7 @@ test ("Should not toggle if false", () => {
 test ("Should remove all todos", () => {
 
     // Arrange
-    const todos: Todo[] = [             //skapar en lista med todos
+    const todos: Todo[] = [  
         new Todo ("städa", false),
         new Todo ("handla", false),
         new Todo ("gå ut med hunden", false),
